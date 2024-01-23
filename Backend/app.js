@@ -5,14 +5,12 @@ import morgan from "morgan";
 import cors from "cors";
 
 import dbConnect from "./Utils/dbConnect.js";
-
+import userRouter from "../Backend/Controller/users/userController.js";
 // dotenv config
 dotenv.config();
 
-
 // MongoDb Connection
-dbConnect()
-
+dbConnect();
 
 // rest object
 const app = express(); // Instantition
@@ -31,7 +29,12 @@ app.get("/", (req, res) => {
   res.status(200).json({ success: "Hello there" });
 });
 
+app.use("/api/user", userRouter);
+
 // listen
 app.listen(PORT, () => {
-  console.log(`Node Server Running in ${process.env.DEV_MODE} Mode On port ${process.env.PORT}`.bgBlue.black.bold);
+  console.log(
+    `Node Server Running in ${process.env.DEV_MODE} Mode On port ${process.env.PORT}`
+      .bgBlue.black.bold
+  );
 });
